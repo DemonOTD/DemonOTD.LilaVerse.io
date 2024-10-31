@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CharacterBuilder</title>
+    <link rel="stylesheet" href="../../css/stylesheet.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../../css/CharacterBuilder.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1>LilaVerse</h1>
+        </div>
+        <ul class="navUl">
+            <li>
+                <a href="../../index.html">Home</a>
+            </li>
+            <li>
+                <a href="Resources" id="Resources-link">Verses
+                    <i class="fas fa-chevron-down" aria-hidden="true">
+                    </i>
+                </a>
+                <ul class="collpase-div">
+                    <!-- This is where to add information about each verse in the drop down menu-->
+                    <li>
+                        <a href="../Cyberpunk.html">CyberVerse</a>
+                    </li>
+                    <li>
+                        <a href="../Modern.html">ModernVerse</a>
+                    </li>
+                    <li>
+                        <a href="../Magica.html">MagicaVerse</a>
+                    </li>
+                    <li>
+                        <a href="../DystopianVerse.html">DystopiaVerse</a>
+                    </li>
+                    <li>
+                        <a href="../TimeVerse.html">TimeVerse</a>
+                    </li>
+                    <!-- This is where to add information about each verse in the drop down menu-->
+                </ul>
+            </li>
+            <li>
+                <a href="Species" id="Species-link">Species
+                    <i class="fas fa-chevron-down" aria-hidden="true">
+                    </i>
+                </a>
+                <ul class="collpase-div">
+                    <!-- This is where to add information about each Species in the drop down menu-->
+                     <li>
+                        <a href="../Species/Human.html">Human</a>
+                     </li>
+                     <li>
+                        <a href="../Species/Demon.html">Demon</a>
+                     </li>
+                     <li>
+                        <a href="../Species/Anthro.html">Anthro</a>
+                     </li>
+                </ul>
+            </li>
+            <li>
+                <a href="ChooseVerse.html">Character Builder</a>
+            </li>
+            <li>
+                <a href="../About.html">About</a>
+            </li>
+        </ul>
+    </div>
+    <body>
+        <div class="container">
+            <h1>Select Your Species</h1>
+            
+            <!-- Species Selection Buttons -->
+            <div class="species-options">
+                <button onclick="selectSpecies('Elf')">Elf</button>
+                <button onclick="selectSpecies('Dwarf')">Dwarf</button>
+                <button onclick="selectSpecies('Human')">Human</button>
+                <!-- Add more species as needed -->
+            </div>
+            
+            <!-- Traits Display Section -->
+            <div id="species-traits-section">
+                <h2>Special Traits</h2>
+                <ul id="speciesTraitsContainer"></ul>
+            </div>
+    
+            <!-- Navigation -->
+            <div class="navigation">
+                <button onclick="goToNextPage('ChooseClass.html')">Next</button>
+            </div>
+        </div>
+    
+        <script src="js/character.js"></script>
+    </body>
+

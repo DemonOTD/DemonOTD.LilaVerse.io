@@ -42,10 +42,40 @@ const verseTraits = {
     // Add more verses and traits as needed
 };
 
+// Species traits data
+const speciesTraits = {
+    Elf: ["Keen senses", "Enhanced agility", "Night vision"],
+    Dwarf: ["Tough constitution", "Stonework knowledge", "Battle resilience"],
+    Human: ["Adaptable", "Skilled negotiator", "Resourceful"]
+    // Add more species and their traits as needed
+};
+
+const verseClasses = {
+    CyberVerse: ["Hacker", "Techno-Warrior", "Cyber Mage"],
+    ModernVerse: ["Detective", "Soldier", "Scientist"],
+    FantasyVerse: ["Wizard", "Knight", "Ranger"]
+}
+
 // Function to display traits
-function displayTraits(verse) {
+function displayVerseTraits(verse) {
     const traitsContainer = document.getElementById("traitsContainer");
     const traits = verseTraits[verse];
+    
+    // Clear previous traits
+    traitsContainer.innerHTML = "";
+
+    // Display selected traits
+    traits.forEach(trait => {
+        const traitElement = document.createElement("li");
+        traitElement.textContent = trait;
+        traitsContainer.appendChild(traitElement);
+    });
+}
+
+// Function to display species traits
+function displaySpeciesTraits(species) {
+    const traitsContainer = document.getElementById("speciesTraitsContainer");
+    const traits = speciesTraits[species];
     
     // Clear previous traits
     traitsContainer.innerHTML = "";
@@ -61,10 +91,16 @@ function displayTraits(verse) {
 // Function to select and save the verse, then display traits
 function selectVerse(verse) {
     saveCharacterData('verse', verse); // Store the verse in localStorage
-    displayTraits(verse); // Display the special traits for the selected verse
+    displayVerseTraits(verse); // Display the special traits for the selected verse
+}
+
+// Function to select and save the species, then display traits
+function selectSpecies(species) {
+    saveCharacterData('species', species); // Store the species in localStorage
+    displaySpeciesTraits(species); // Display the special traits for the selected species
 }
 
 // Function to navigate to the next page
-function goToNextPage() {
-    window.location.href = "ChooseSpecies.html"; // Update with the path to the next page
+function goToNextPage(nextPageUrl) {
+    window.location.href = nextPageUrl;
 }
