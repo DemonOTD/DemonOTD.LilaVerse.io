@@ -34,10 +34,34 @@ function clearCharacterData() {
 // Load existing character data (if any)
 loadCharacterData();
 
-// Function to select and save the verse
+// Verse traits data
+const verseTraits = {
+    CyberVerse: ["High-tech gadgets", "Cybernetic enhancements", "Advanced hacking skills"],
+    ModernVerse: ["Modern weaponry", "Strategic thinking", "Diplomacy skills"],
+    MagicaVerse: ["Magic spells", "Mythical creatures", "Alchemy knowledge"]
+    // Add more verses and traits as needed
+};
+
+// Function to display traits
+function displayTraits(verse) {
+    const traitsContainer = document.getElementById("traitsContainer");
+    const traits = verseTraits[verse];
+    
+    // Clear previous traits
+    traitsContainer.innerHTML = "";
+
+    // Display selected traits
+    traits.forEach(trait => {
+        const traitElement = document.createElement("li");
+        traitElement.textContent = trait;
+        traitsContainer.appendChild(traitElement);
+    });
+}
+
+// Function to select and save the verse, then display traits
 function selectVerse(verse) {
     saveCharacterData('verse', verse); // Store the verse in localStorage
-    alert("You selected " + verse);
+    displayTraits(verse); // Display the special traits for the selected verse
 }
 
 // Function to navigate to the next page

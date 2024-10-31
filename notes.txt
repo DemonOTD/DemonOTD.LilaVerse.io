@@ -1,0 +1,31 @@
+ <body>
+        <div class="content">
+            <div class="container">
+                <div class="text-Centered">
+                    <h1>MagicaVerse</h1>
+                    <p></p>
+
+                    <h2>Cybernetic Augmentation</h2>
+                    
+
+                    <h2>Advanced Technology</h2>
+                    
+
+                    <h3>Humanity</h3>
+                    <p></p>
+
+                    <h2>Class Options</h2>
+                    <h3></h3>
+                    <h3></h3>
+                    <h3></h3>
+
+                    <h3>Skill Boosts</h3>
+                    <p></p>
+                    <p>
+                        <li></li>
+                        <li></li>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
