@@ -40,8 +40,8 @@ margin-bottom: 0.75em;
 }
 
 .sidenav{
-  height: 34%;
-  width: 180px;
+  max-height: fit-content;
+  max-width: fit-content;
   position: fixed;
   z-index: 1;
   top: 10%;
