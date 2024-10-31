@@ -30,3 +30,17 @@ function clearCharacterData() {
     localStorage.removeItem('character');
     character = {}; // Reset object
 }
+
+// Load existing character data (if any)
+loadCharacterData();
+
+// Function to select and save the verse
+function selectVerse(verse) {
+    saveCharacterData('verse', verse); // Store the verse in localStorage
+    alert("You selected " + verse);
+}
+
+// Function to navigate to the next page
+function goToNextPage() {
+    window.location.href = "ChooseSpecies.html"; // Update with the path to the next page
+}

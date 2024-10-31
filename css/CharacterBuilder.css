@@ -1,0 +1,41 @@
+/* Style for the container */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style for buttons */
+.verse-options button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.verse-options button:hover {
+    background-color: #555;
+}
+
+/* Style for the navigation button */
+.navigation button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navigation button:hover {
+    background-color: #0056b3;
+}
