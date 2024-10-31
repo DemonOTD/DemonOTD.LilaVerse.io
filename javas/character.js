@@ -56,6 +56,24 @@ const verseClasses = {
     FantasyVerse: ["Wizard", "Knight", "Ranger"]
 }
 
+const classLevels = {
+    Hacker: {
+        1: ["Basic Hacking", "Network Infiltration"],
+        2: ["Advanced Encryption", "Digital Camouflage"],
+        3: ["Cyber Domination", "AI Companions"]
+    },
+    "Techno-Warrior": {
+        1: ["Enhanced Strength", "Basic Explosives"],
+        2: ["Armor Piercing", "Advanced Weaponry"],
+        3: ["Full Armor Integration", "Heavy Artillery"]
+    },
+    Wizard: {
+        1: ["Magic Missile", "Light"],
+        2: ["Fireball", "Invisibility"],
+        3: ["Teleportation", "Time Manipulation"]
+    }
+}
+
 // Function to display traits
 function displayVerseTraits(verse) {
     const traitsContainer = document.getElementById("traitsContainer");
