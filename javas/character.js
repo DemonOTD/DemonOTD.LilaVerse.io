@@ -12,3 +12,21 @@ let character = {
     },
     equipment: []
 };
+
+function saveCharacterData(key, value) {
+    // Update character object and save to localStorage
+    character[key] = value;
+    localStorage.setItem('character', JSON.stringify(character));
+}
+
+function loadCharacterData() {
+    const savedCharacter = localStorage.getItem('character');
+    if (savedCharacter) {
+        character = JSON.parse(savedCharacter);
+    }
+}
+
+function clearCharacterData() {
+    localStorage.removeItem('character');
+    character = {}; // Reset object
+}
