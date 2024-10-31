@@ -1,0 +1,83 @@
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+.header {
+    background-color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo h1 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Navigation Menu */
+.navUl {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.navUl li {
+    position: relative;
+}
+
+.navUl a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.navUl a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+/* Dropdown Menu */
+.collpase-div {
+    display: none; /* Hide dropdown by default */
+    position: absolute;
+    top: 100%; /* Position it below the parent link */
+    left: 0;
+    background-color: #444;
+    list-style: none;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.collpase-div li {
+    width: 100%;
+}
+
+.collpase-div a {
+    padding: 10px 15px;
+    color: #fff;
+    font-weight: normal;
+}
+
+.collpase-div a:hover {
+    background-color: #666;
+}
+
+/* Show dropdown on hover */
+.navUl li:hover .collpase-div {
+    display: block;
+}
