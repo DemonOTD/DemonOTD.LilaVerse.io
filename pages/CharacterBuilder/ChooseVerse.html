@@ -72,9 +72,15 @@
         <h1>Select Your Verse</h1>
         <div class="verse-options">
             <button onclick="selectVerse('CyberVerse')">CyberVerse</button>
-            <button onclick="selectVerse('ModernVerse')">ModernVerse</button>
             <button onclick="selectVerse('MagicaVerse')">MagicaVerse</button>
+            <button onclick="selectVerse('TimeVerse')">TimeVerse</button>
             <!-- Add more verses as needed -->
+        </div>
+
+
+        <div id="sub-option-section" style="display: none;"></div>
+            <h2>Select a TimeVerse Era</h2>
+            <div id="sub-options"></div>
         </div>
 
 
@@ -91,6 +97,57 @@
     </div>
 
     <script src="../../javas/character.js"></script>
+    <script>
+        // Function to select and save the verse
+        function selectVerse(verse) {
+            // Check if the verse has sub-options (like "TimeVerse")
+            if (typeof verseTraits[verse] === "object" && !Array.isArray(verseTraits[verse])) {
+                displaySubOptions(verse); // Show sub-options
+            } else {
+                saveCharacterData('verse', verse); // Store the verse in localStorage
+                displayVersesTraits(verse); // Display the special traits for the selected verse
+                document.getElementById("sub-option-section").style.display = "none"; // Hide sub-options if any were previously shown
+            }
+        }
+
+        // Display sub-options for verses like "TimeVerse"
+        function displaySubOptions(verse) {
+            const subOptions = verseTraits[verse];
+            const subOptionsContainer = document.getElementById("sub-options");
+            subOptionsContainer.innerHTML = ""; // Clear previous sub-options
+            document.getElementById("sub-option-section").style.display = "block"; // Show the sub-option section
+
+            // Create buttons for each sub-option
+            for (const subOption in subOptions) {
+                const button = document.createElement("button");
+                button.textContent = subOption;
+                button.onclick = () => selectSubOption(verse, subOption);
+                subOptionsContainer.appendChild(button);
+            }
+        }
+
+        // Function to select and save the sub-option
+        function selectSubOption(verse, subOption) {
+            saveCharacterData('verse', verse); // Save main verse
+            saveCharacterData('subVerse', subOption); // Save the sub-option
+            displayTraits(subOption); // Display the special traits for the selected sub-option
+        }
+
+        // Function to display traits
+        function displayVersesTraits(option) {
+            const traitsContainer = document.getElementById("traitsContainer");
+            const traits = verseTraits[option] || []; // Fetch traits based on option
+            
+            traitsContainer.innerHTML = ""; // Clear previous traits
+
+            // Display selected traits
+            traits.forEach(trait => {
+                const traitElement = document.createElement("li");
+                traitElement.textContent = trait;
+                traitsContainer.appendChild(traitElement);
+            });
+        }
+    </script>
 
 </body>
 </html>

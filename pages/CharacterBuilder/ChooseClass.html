@@ -70,7 +70,7 @@
     <body>
         <div class="container">
             <h1>Select Your Class</h1>
-            
+        
             <!-- Class Options based on Verse -->
             <div id="class-options"></div>
             
@@ -80,19 +80,34 @@
                 <ul id="classTraitsContainer"></ul>
             </div>
     
+            <!-- Level Selection Section (shown after class selection) -->
+            <div id="level-section" style="display: none;">
+                <h2>Select Level</h2>
+                <div id="level-options"></div>
+            </div>
+    
             <!-- Navigation -->
             <div class="navigation">
                 <button onclick="goToNextPage('ChooseAbilities.html')">Next</button>
             </div>
         </div>
     
-        <script src="../../javas/character.js"></script>
+        <script src="js/character.js"></script>
         <script>
             // Load classes based on the selected verse
             function loadClasses() {
                 loadCharacterData(); // Loads character data from localStorage
                 const verse = character.verse; // Retrieve selected verse
-                const classes = verseClasses[verse]; // Get classes for the selected verse
+                const subVerse = character.subVerse; // Get classes for the selected verse
+
+                let classes;
+                if (subVerse && verseClasses[verse] && verseClasses[verse][subVerse]) {
+                // Load classes based on the sub-option (e.g., "Vikings" classes)
+                    classes = verseClasses[verse][subVerse];
+                } else if (verseClasses[verse] && !subVerse) {
+                    // Load classes based on the main verse only
+                    classes = verseClasses[verse];
+                }
                 
                 const classOptionsContainer = document.getElementById("class-options");
                 classOptionsContainer.innerHTML = ""; // Clear any previous options
@@ -104,41 +119,74 @@
                     classOptionsContainer.appendChild(button);
                 });
             }
+
+
     
-            // Function to save the selected class and display traits
-            function selectClass(selectedClass) {
-                saveCharacterData('class', selectedClass); // Store the selected class
-                displayClassTraits(selectedClass); // Show traits for the selected class
+             // Function to save the selected class and display traits
+        function selectClass(selectedClass) {
+            saveCharacterData('class', selectedClass); // Store the selected class
+            displayClassTraits(selectedClass); // Show traits for the selected class
+        }
+
+        // Display traits for each class
+        function displayClassTraits(className) {
+            const traitsContainer = document.getElementById("classTraitsContainer");
+            const traits = classTraits[className] || [];
+            
+            traitsContainer.innerHTML = ""; // Clear previous traits
+
+            traits.forEach(trait => {
+                const traitElement = document.createElement("li");
+                traitElement.textContent = trait;
+                traitsContainer.appendChild(traitElement);
+            });
+        }
+    
+            // Display level options for the selected class
+            function displayLevels(className) {
+                const levelSection = document.getElementById("level-section");
+                const levelOptionsContainer = document.getElementById("level-options");
+                levelOptionsContainer.innerHTML = ""; // Clear previous options
+                
+                // Show level section
+                levelSection.style.display = "block";
+                
+                const levels = classLevels[className] || {};
+    
+                for (const [level, options] of Object.entries(levels)) {
+                    const levelDiv = document.createElement("div");
+                    levelDiv.className = "level-option";
+    
+                    const levelTitle = document.createElement("h3");
+                    levelTitle.textContent = `Level ${level}`;
+                    levelDiv.appendChild(levelTitle);
+    
+                    const optionsList = document.createElement("ul");
+                    options.forEach(option => {
+                        const optionItem = document.createElement("li");
+                        optionItem.textContent = option;
+                        optionsList.appendChild(optionItem);
+                    });
+    
+                    // Button to select level
+                    const selectButton = document.createElement("button");
+                    selectButton.textContent = `Select Level ${level}`;
+                    selectButton.onclick = () => selectLevel(level, className);
+                    levelDiv.appendChild(optionsList);
+                    levelDiv.appendChild(selectButton);
+    
+                    levelOptionsContainer.appendChild(levelDiv);
+                }
             }
     
-            // Display traits for each class (example traits - can be customized)
-            const classTraits = {
-                Hacker: ["Infiltration", "Cyber attack", "Stealth"],
-                "Techno-Warrior": ["Enhanced strength", "Armor handling", "Explosives"],
-                "Cyber Mage": ["Virtual spells", "Holograms", "Energy manipulation"],
-                Detective: ["Investigation", "Interrogation", "Stealth"],
-                Soldier: ["Combat expertise", "Endurance", "Weapon handling"],
-                Scientist: ["Research", "Medical knowledge", "Technology handling"],
-                Wizard: ["Spell casting", "Potion brewing", "Ancient lore"],
-                Knight: ["Swordsmanship", "Leadership", "Shield mastery"],
-                Ranger: ["Tracking", "Archery", "Animal handling"]
-                // Add more classes and their traits as needed
-            };
-    
-            function displayClassTraits(className) {
-                const traitsContainer = document.getElementById("classTraitsContainer");
-                const traits = classTraits[className] || [];
-                
-                traitsContainer.innerHTML = ""; // Clear previous traits
-    
-                traits.forEach(trait => {
-                    const traitElement = document.createElement("li");
-                    traitElement.textContent = trait;
-                    traitsContainer.appendChild(traitElement);
-                });
+            // Function to save the selected level
+            function selectLevel(level, className) {
+                saveCharacterData('level', { level, class: className }); // Store the level and class
+                alert(`Selected Level ${level} for ${className}`);
             }
     
             // Initialize the class options on page load
             window.onload = loadClasses;
+        </script>
         </script>
     </body>

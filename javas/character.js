@@ -1,5 +1,6 @@
 let character = {
     verse: null,
+    subVerse: null,
     species: null,
     class: null,
     abilities: {
@@ -36,24 +37,35 @@ loadCharacterData();
 
 // Verse traits data
 const verseTraits = {
-    CyberVerse: ["High-tech gadgets", "Cybernetic enhancements", "Advanced hacking skills"],
-    ModernVerse: ["Modern weaponry", "Strategic thinking", "Diplomacy skills"],
-    MagicaVerse: ["Magic spells", "Mythical creatures", "Alchemy knowledge"]
+    CyberVerse: ["Cybernetic Augmentation ", "Advanced Technology", ""],
+    MagicaVerse: ["Magic Transformation", "The Power of Friendship", ""],
+    TimeVerse: {
+        Vikings: ["Time Warped", "Mythical creatures", "Alchemy knowledge"],
+        Crusader: []
+    }
     // Add more verses and traits as needed
 };
 
 // Species traits data
 const speciesTraits = {
-    Elf: ["Keen senses", "Enhanced agility", "Night vision"],
-    Dwarf: ["Tough constitution", "Stonework knowledge", "Battle resilience"],
-    Human: ["Adaptable", "Skilled negotiator", "Resourceful"]
+    Human: ["Adaptability"],
+    Demon: ["Battle Resilience"],
+    Anthro: {
+        Wolf: ["Keen Senses", "Hastened Reflexes"],
+        Cat: []
+    }
+
     // Add more species and their traits as needed
 };
 
 const verseClasses = {
-    CyberVerse: ["Hacker", "Techno-Warrior", "Cyber Mage"],
-    ModernVerse: ["Detective", "Soldier", "Scientist"],
-    FantasyVerse: ["Wizard", "Knight", "Ranger"]
+    CyberVerse: ["Brawler", "Medic", "Hacker"],
+    ModernVerse: [],
+    MagicaVerse: ["Heart", "Protection", "Sacrifice"],
+    TimeVerse: { 
+        Vikings: ["Hunter", "Berserker", "Shaman"],
+        Crusader: ["Footman", "Cavilry", "Preist"]
+    }
 }
 
 const classLevels = {

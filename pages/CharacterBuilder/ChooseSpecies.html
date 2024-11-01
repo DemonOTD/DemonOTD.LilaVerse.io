@@ -73,11 +73,16 @@
             
             <!-- Species Selection Buttons -->
             <div class="species-options">
-                <button onclick="selectSpecies('Elf')">Elf</button>
-                <button onclick="selectSpecies('Dwarf')">Dwarf</button>
-                <button onclick="selectSpecies('Human')">Human</button>
+                <button onclick="selectSpecies('Human')">Elf</button>
+                <button onclick="selectSpecies('Demon')">Dwarf</button>
+                <button onclick="selectSpecies('Anthro')">Human</button>
                 <!-- Add more species as needed -->
             </div>
+
+            <div id="sub-option-section" style="display: none;"></div>
+            <h2>Select a sub-species</h2>
+            <div id="sub-options"></div>
+        </div>
             
             <!-- Traits Display Section -->
             <div id="species-traits-section">
@@ -92,5 +97,56 @@
         </div>
     
         <script src="../../javas/character.js"></script>
+        <script>
+        // Function to select and save the verse
+        function selectSpecies(Species) {
+            // Check if the verse has sub-options (like "TimeVerse")
+            if (typeof speciesTraits[species] === "object" && !Array.isArray(speciesTraits[species])) {
+                displaySubOptions(verse); // Show sub-options
+            } else {
+                saveCharacterData('Species', Species); // Store the verse in localStorage
+                displaySpeciesTraits(Species); // Display the special traits for the selected verse
+                document.getElementById("sub-option-section").style.display = "none"; // Hide sub-options if any were previously shown
+            }
+        }
+
+        // Display sub-options for verses like "TimeVerse"
+        function displaySubOptions(verse) {
+            const subOptions = speciesTraits[Species];
+            const subOptionsContainer = document.getElementById("sub-options");
+            subOptionsContainer.innerHTML = ""; // Clear previous sub-options
+            document.getElementById("sub-option-section").style.display = "block"; // Show the sub-option section
+
+            // Create buttons for each sub-option
+            for (const subOption in subOptions) {
+                const button = document.createElement("button");
+                button.textContent = subOption;
+                button.onclick = () => selectSubOption(verse, subOption);
+                subOptionsContainer.appendChild(button);
+            }
+        }
+
+        // Function to select and save the sub-option
+        function selectSubOption(species, subOption) {
+            saveCharacterData('species', species); // Save main verse
+            saveCharacterData('subSpecies', subOption); // Save the sub-option
+            displayTraits(subOption); // Display the special traits for the selected sub-option
+        }
+
+        // Function to display traits
+        function displayTraits(option) {
+            const traitsContainer = document.getElementById("traitsContainer");
+            const traits = speciesTraits[option] || []; // Fetch traits based on option
+            
+            traitsContainer.innerHTML = ""; // Clear previous traits
+
+            // Display selected traits
+            traits.forEach(trait => {
+                const traitElement = document.createElement("li");
+                traitElement.textContent = trait;
+                traitsContainer.appendChild(traitElement);
+            });
+        }
+    </script>
     </body>
 
