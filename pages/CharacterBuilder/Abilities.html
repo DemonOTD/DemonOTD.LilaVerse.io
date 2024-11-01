@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CharacterBuilder</title>
+    <link rel="stylesheet" href="../../css/stylesheet.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../../css/CharacterBuilder.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1>LilaVerse</h1>
+        </div>
+        <ul class="navUl">
+            <li>
+                <a href="../../index.html">Home</a>
+            </li>
+            <li>
+                <a href="Resources" id="Resources-link">Verses
+                    <i class="fas fa-chevron-down" aria-hidden="true">
+                    </i>
+                </a>
+                <ul class="collpase-div">
+                    <!-- This is where to add information about each verse in the drop down menu-->
+                    <li>
+                        <a href="../Cyberpunk.html">CyberVerse</a>
+                    </li>
+                    <li>
+                        <a href="../Modern.html">ModernVerse</a>
+                    </li>
+                    <li>
+                        <a href="../Magica.html">MagicaVerse</a>
+                    </li>
+                    <li>
+                        <a href="../DystopianVerse.html">DystopiaVerse</a>
+                    </li>
+                    <li>
+                        <a href="../TimeVerse.html">TimeVerse</a>
+                    </li>
+                    <!-- This is where to add information about each verse in the drop down menu-->
+                </ul>
+            </li>
+            <li>
+                <a href="Species" id="Species-link">Species
+                    <i class="fas fa-chevron-down" aria-hidden="true">
+                    </i>
+                </a>
+                <ul class="collpase-div">
+                    <!-- This is where to add information about each Species in the drop down menu-->
+                     <li>
+                        <a href="../Species/Human.html">Human</a>
+                     </li>
+                     <li>
+                        <a href="../Species/Demon.html">Demon</a>
+                     </li>
+                     <li>
+                        <a href="../Species/Anthro.html">Anthro</a>
+                     </li>
+                </ul>
+            </li>
+            <li>
+                <a href="ChooseVerse.html">Character Builder</a>
+            </li>
+            <li>
+                <a href="../About.html">About</a>
+            </li>
+        </ul>
+    </div>
+    <body>
+        <div class="container">
+            <h1>Allocate Ability Points</h1>
+            
+            <!-- Display Remaining Points -->
+            <div id="points-section">
+                <p>Points Remaining: <span id="pointsRemaining">27</span></p>
+            </div>
+    
+            <!-- Ability Scores with Adjust Buttons -->
+            <div id="abilities">
+                <div class="ability" data-ability="strength">
+                    <h2>Strength</h2>
+                    <button onclick="adjustScore('strength', -1)">-</button>
+                    <span id="strength-score">8</span>
+                    <button onclick="adjustScore('strength', 1)">+</button>
+                </div>
+                <div class="ability" data-ability="dexterity">
+                    <h2>Dexterity</h2>
+                    <button onclick="adjustScore('dexterity', -1)">-</button>
+                    <span id="dexterity-score">8</span>
+                    <button onclick="adjustScore('dexterity', 1)">+</button>
+                </div>
+                <!-- Repeat for each ability (Constitution, Intelligence, Wisdom, Charisma) -->
+            </div>
+    
+            <!-- Navigation -->
+            <div class="navigation">
+                <button onclick="goToNextPage('ChooseEquipment.html')">Next</button>
+            </div>
+        </div>
+    
+        <script src="js/character.js"></script>
+        <script>
+            // Initialize points and ability scores
+            const maxPoints = 27;
+            let pointsRemaining = maxPoints;
+            const abilities = {
+                strength: 8,
+                dexterity: 8,
+                constitution: 8,
+                intelligence: 8,
+                wisdom: 8,
+                charisma: 8
+            };
+    
+            // Point costs for each score
+            const pointCosts = {
+                8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9
+            };
+    
+            // Function to adjust ability score
+            function adjustScore(ability, change) {
+                const currentScore = abilities[ability];
+                const newScore = currentScore + change;
+    
+                // Calculate cost and validate change
+                const currentCost = pointCosts[currentScore];
+                const newCost = pointCosts[newScore];
+                const costDifference = newCost - currentCost;
+    
+                if (newScore >= 8 && newScore <= 15 && pointsRemaining - costDifference >= 0) {
+                    abilities[ability] = newScore;
+                    pointsRemaining -= costDifference;
+                    document.getElementById(`${ability}-score`).textContent = newScore;
+                    document.getElementById("pointsRemaining").textContent = pointsRemaining;
+                }
+            }
+    
+            // Save abilities and points when leaving the page
+            function saveAbilities() {
+                saveCharacterData("abilities", abilities);
+            }
+    
+            // Call saveAbilities before navigating to the next page
+            function goToNextPage(nextPageUrl) {
+                saveAbilities();
+                window.location.href = nextPageUrl;
+            }
+        </script>
+    </body>

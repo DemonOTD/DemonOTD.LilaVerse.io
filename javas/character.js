@@ -72,6 +72,16 @@ function loadCharacterData() {
     }
 }
 
+function logCharacterData() {
+    const savedCharacter = localStorage.getItem("character");
+    if (savedCharacter) {
+        const character = JSON.parse(savedCharacter);
+        console.log("Character Data:", character);
+    } else {
+        console.log("No character data found.");
+    }
+}
+
 function clearCharacterData() {
     localStorage.removeItem('character');
     character = {}; // Reset object
