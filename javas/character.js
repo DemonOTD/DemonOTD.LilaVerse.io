@@ -285,3 +285,46 @@ function selectSpecies(species) {
 function goToNextPage(nextPageUrl) {
     window.location.href = nextPageUrl;
 }
+
+
+function selectEra(subVerse) {
+    character.subVerse = subVerse;
+    saveCharacterData("subVerse", subVerse);
+
+    // Display special traits based on the selected sub-verse
+    displaySpecialTraits(character.verse, subVerse);
+}
+
+function displaySpecialTraits(verse, subVerse = null) {
+    const traitsContainer = document.getElementById("traits");
+    traitsContainer.innerHTML = ""; // Clear previous traits
+
+    let traits = [];
+
+    // Example traits for each verse and sub-verse
+    const specialTraits = {
+        TimeVerse: {
+            default: ["Time Manipulation", "Historical Knowledge"],
+            Vikings: ["Berserker Rage", "Seafaring"],
+            Crusader: ["Divine Favor", "Holy Resistance"]
+        },
+        // Add traits for other verses here
+    };
+
+    // Load traits for the main verse
+    if (specialTraits[verse]) {
+        traits = specialTraits[verse].default || [];
+    }
+
+    // Load traits for the sub-verse if provided
+    if (subVerse && specialTraits[verse] && specialTraits[verse][subVerse]) {
+        traits = specialTraits[verse][subVerse];
+    }
+
+    // Display the traits
+    traits.forEach(trait => {
+        const traitElement = document.createElement("p");
+        traitElement.textContent = trait;
+        traitsContainer.appendChild(traitElement);
+    });
+}
