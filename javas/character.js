@@ -3,6 +3,7 @@ let character = {
     verse: null,
     subVerse: null,
     species: null,
+    subSpecies: null,
     class: null,
     speed: null,
     initiative: null,
@@ -287,6 +288,15 @@ function goToNextPage(nextPageUrl) {
 }
 
 
+function selectSubSpecies(subSpecies)
+{
+    character.subSpecies = subSpecies;
+    saveCharacterData("subSpecies", subSpecies);
+
+    displayRacialTraits(character.species, subSpecies);
+}
+
+
 function selectEra(subVerse) {
     character.subVerse = subVerse;
     saveCharacterData("subVerse", subVerse);
@@ -303,10 +313,13 @@ function displaySpecialTraits(verse, subVerse = null) {
 
     // Example traits for each verse and sub-verse
     const specialTraits = {
+        CyberVerse: ["Cybernetic Augmentation ", "Advanced Technology", "+ Medicine", "+ 2 Proficencies"],
+        DystopianVerse:[],
+        MagicaVerse: ["Magic Transformation", "The Power of Friendship", "+ Arcana & Religion", "+ 1 Proficency"],
+        ModernVerse:[],
         TimeVerse: {
-            default: ["Time Manipulation", "Historical Knowledge"],
-            Vikings: ["Berserker Rage", "Seafaring"],
-            Crusader: ["Divine Favor", "Holy Resistance"]
+        Vikings: ["Time Warped", "Sons of The Old Gods", "+ History & Intimidation", "+ 1 Proficency"],
+        Crusader: ["Time Warped", "Sons of The New God", "+ History & Persausion", "+ 1 Proficency"]
         },
         // Add traits for other verses here
     };
@@ -327,4 +340,9 @@ function displaySpecialTraits(verse, subVerse = null) {
         traitElement.textContent = trait;
         traitsContainer.appendChild(traitElement);
     });
+}
+
+function displayRacialTraits(species, subSpecies)
+{
+
 }
