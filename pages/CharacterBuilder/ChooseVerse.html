@@ -80,7 +80,7 @@
         </div>
 
 
-        <div id="sub-option-section" style="display: none;"></div>
+        <div id="sub-option-section" style="visibility: hidden;"></div>
             <h2>Select a TimeVerse Era</h2>
             <div id="sub-options"></div>
         </div>
@@ -132,7 +132,7 @@
         function selectSubOption(verse, subOption) {
             saveCharacterData('verse', verse); // Save main verse
             saveCharacterData('subVerse', subOption); // Save the sub-option
-            displayTraits(subOption); // Display the special traits for the selected sub-option
+            displayVersesTraits(subOption); // Display the special traits for the selected sub-option
         }
 
         // Function to display traits
