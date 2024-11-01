@@ -152,7 +152,7 @@
                 const newCost = pointCosts[newScore];
                 const costDifference = newCost - currentCost;
     
-                if (newScore >= 8 && newScore <= 15 && pointsRemaining - costDifference >= 0) {
+                if (newScore >= 8 && newScore <= 16 && pointsRemaining - costDifference >= 0) {
                     abilities[ability] = newScore;
                     pointsRemaining -= costDifference;
                     document.getElementById(`${ability}-score`).textContent = newScore;
