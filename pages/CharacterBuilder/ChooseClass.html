@@ -83,7 +83,10 @@
             <!-- Level Selection Section (shown after class selection) -->
             <div id="level-section" style="display: none;">
                 <h2>Select Level</h2>
-                <div id="level-options"></div>
+                <select id="level-dropdown" onchange="selectLevel(this.value)">
+                    <option value="" disabled selected>Select a level</option>
+                    <!-- Levels will be added here dynamically -->
+                </select>
             </div>
     
             <!-- Navigation -->
@@ -112,20 +115,20 @@
                 const classOptionsContainer = document.getElementById("class-options");
                 classOptionsContainer.innerHTML = ""; // Clear any previous options
     
-                classes.forEach(className => {
-                    const button = document.createElement("button");
-                    button.textContent = className;
-                    button.onclick = () => selectClass(className);
-                    classOptionsContainer.appendChild(button);
+                // Create buttons for each class
+                (classes || []).forEach(className => {
+                const button = document.createElement("button");
+                button.textContent = className;
+                button.onclick = () => selectClass(className);
+                classOptionsContainer.appendChild(button);
                 });
             }
 
-
-    
-             // Function to save the selected class and display traits
+            // Function to save the selected class, display traits, and show level dropdown
         function selectClass(selectedClass) {
             saveCharacterData('class', selectedClass); // Store the selected class
             displayClassTraits(selectedClass); // Show traits for the selected class
+            displayLevelDropdown(selectedClass); // Show level dropdown for the selected class
         }
 
         // Display traits for each class
@@ -142,48 +145,31 @@
             });
         }
     
-            // Display level options for the selected class
-            function displayLevels(className) {
-                const levelSection = document.getElementById("level-section");
-                const levelOptionsContainer = document.getElementById("level-options");
-                levelOptionsContainer.innerHTML = ""; // Clear previous options
-                
-                // Show level section
-                levelSection.style.display = "block";
-                
-                const levels = classLevels[className] || {};
-    
-                for (const [level, options] of Object.entries(levels)) {
-                    const levelDiv = document.createElement("div");
-                    levelDiv.className = "level-option";
-    
-                    const levelTitle = document.createElement("h3");
-                    levelTitle.textContent = `Level ${level}`;
-                    levelDiv.appendChild(levelTitle);
-    
-                    const optionsList = document.createElement("ul");
-                    options.forEach(option => {
-                        const optionItem = document.createElement("li");
-                        optionItem.textContent = option;
-                        optionsList.appendChild(optionItem);
-                    });
-    
-                    // Button to select level
-                    const selectButton = document.createElement("button");
-                    selectButton.textContent = `Select Level ${level}`;
-                    selectButton.onclick = () => selectLevel(level, className);
-                    levelDiv.appendChild(optionsList);
-                    levelDiv.appendChild(selectButton);
-    
-                    levelOptionsContainer.appendChild(levelDiv);
-                }
+            // Show and populate the level dropdown based on the selected class
+        function displayLevelDropdown(className) {
+            const levelSection = document.getElementById("level-section");
+            const levelDropdown = document.getElementById("level-dropdown");
+
+            // Clear any previous level options
+            levelDropdown.innerHTML = `<option value="" disabled selected>Select a level</option>`;
+
+            // Assuming 1-10 levels for all classes; can customize per class if needed
+            for (let i = 1; i <= 20; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = `Level ${i}`;
+                levelDropdown.appendChild(option);
             }
-    
-            // Function to save the selected level
-            function selectLevel(level, className) {
-                saveCharacterData('level', { level, class: className }); // Store the level and class
-                alert(`Selected Level ${level} for ${className}`);
-            }
+
+            // Show the level dropdown section
+            levelSection.style.display = "block";
+        }
+
+        // Function to save the selected level
+        function selectLevel(level) {
+            saveCharacterData('level', level); // Store the selected level in localStorage
+            alert(`Selected Level ${level}`);
+        }
     
             // Initialize the class options on page load
             window.onload = loadClasses;

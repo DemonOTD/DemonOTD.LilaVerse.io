@@ -1,15 +1,60 @@
 let character = {
+    hitpoints:null,
     verse: null,
     subVerse: null,
     species: null,
     class: null,
-    abilities: {
+    speed: null,
+    initiative: null,
+    level: 0,
+    characterName: null,
+    armorClass: 0,
+    proficencyBonus: false,
+    abilityScore: {
         strength: 0,
         dexterity: 0,
         constitution: 0,
         intelligence: 0,
         wisdom: 0,
         charisma: 0
+    },
+    abilityModifier: {
+        strength: 0,
+        dexterity: 0,
+        constitution: 0,
+        intelligence: 0,
+        wisdom: 0,
+        charisma: 0
+    },
+    savingThrows: {
+        strength: 0,
+        dexterity: 0,
+        constitution: 0,
+        intelligence: 0,
+        wisdom: 0,
+        charisma: 0
+    },
+    skills:{
+        Acrobatics: 0,
+        AnimalHandling: 0,
+        Arcana: 0 ,
+        Athletics: 0,
+        Deception: 0,
+        History: 0,
+        Insight: 0,
+        Intimidation: 0,
+        Investigation: 0,
+        Medicine: 0,
+        Nature: 0,
+        Perception: 0,
+        Performance: 0,
+        Persuasion: 0,
+        Religion: 0,
+        SleightofHand: 0,
+        Stealth: 0,
+        Survival: 0,
+        Humanity: 0, //For the CyberVerse Class
+        Love: 0 //For the MagicaVerse Class 
     },
     equipment: []
 };
@@ -37,22 +82,24 @@ loadCharacterData();
 
 // Verse traits data
 const verseTraits = {
-    CyberVerse: ["Cybernetic Augmentation ", "Advanced Technology", ""],
-    MagicaVerse: ["Magic Transformation", "The Power of Friendship", ""],
+    CyberVerse: ["Cybernetic Augmentation ", "Advanced Technology", "+ Medicine", "+ 2 Proficencies"],
+    DystopianVerse:[],
+    MagicaVerse: ["Magic Transformation", "The Power of Friendship", "+ Arcana & Religion", "+ 1 Proficency"],
+    ModernVerse:[],
     TimeVerse: {
-        Vikings: ["Time Warped", "Mythical creatures", "Alchemy knowledge"],
-        Crusader: []
+        Vikings: ["Time Warped", "Sons of The Old Gods", "+ History & Intimidation", "+ 1 Proficency"],
+        Crusader: ["Time Warped", "Sons of The New God", "+ History & Persausion", "+ 1 Proficency"]
     }
     // Add more verses and traits as needed
 };
 
 // Species traits data
 const speciesTraits = {
-    Human: ["Adaptability"],
-    Demon: ["Battle Resilience"],
+    Human: ["Adaptability", "30ft Movement"],
+    Demon: ["Battle Resilience", "30ft Movement"],
     Anthro: {
-        Wolf: ["Keen Senses", "Hastened Reflexes"],
-        Cat: []
+        Wolf: ["Keen Senses", "30ft Movement"],
+        Cat: ["Hastened Reflexes", "40ft Movement"]
     }
 
     // Add more species and their traits as needed
@@ -60,30 +107,124 @@ const speciesTraits = {
 
 const verseClasses = {
     CyberVerse: ["Brawler", "Medic", "Hacker"],
-    ModernVerse: [],
+    DystopianVerse: [],
     MagicaVerse: ["Heart", "Protection", "Sacrifice"],
+    ModernVerse: [],
     TimeVerse: { 
         Vikings: ["Hunter", "Berserker", "Shaman"],
-        Crusader: ["Footman", "Cavilry", "Preist"]
+        Crusader: ["Paladin", "Cavilry", "Preist"]
     }
 }
 
 const classLevels = {
+    Brawler: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Medic: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
     Hacker: {
-        1: ["Basic Hacking", "Network Infiltration"],
-        2: ["Advanced Encryption", "Digital Camouflage"],
-        3: ["Cyber Domination", "AI Companions"]
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
     },
-    "Techno-Warrior": {
-        1: ["Enhanced Strength", "Basic Explosives"],
-        2: ["Armor Piercing", "Advanced Weaponry"],
-        3: ["Full Armor Integration", "Heavy Artillery"]
+    DBlank: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
     },
-    Wizard: {
-        1: ["Magic Missile", "Light"],
-        2: ["Fireball", "Invisibility"],
-        3: ["Teleportation", "Time Manipulation"]
-    }
+    DBlank: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    DBlank: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Heart: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Protection: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Sacrifice: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    MBlank: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    MBlank: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    MBlank: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Hunter: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Berserker: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Shaman: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Paladin: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Cavilry: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
+    Priest: {
+        1: [], 2: [], 3: [], 4: [], 5: [],
+        6: [], 7: [], 8: [], 9: [], 10: [],
+        11: [], 12: [], 13: [], 14: [], 15: [],
+        16: [], 17: [], 18: [], 19: [], 20: [],
+    },
 }
 
 // Function to display traits
